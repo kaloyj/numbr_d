@@ -1,9 +1,42 @@
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter-Regular.ttf");
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter Light";
+  src: url("/fonts/Inter/Inter-ExtraLight.ttf");
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter Bold";
+  src: url("/fonts/Inter/Inter-Bold.ttf");
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --black: #171219;
+  --light-black: #332838;
+  --white: #ffffff;
+  --accent: #147efb;
+  --green: #53d769;
+
+  --min-width-mobile: 320px;
+  --min-width-tablet: 768px;
+  --min-width-desktop: 1200px;
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 a {
@@ -13,4 +46,15 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Inter Bold", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-weight: 700;
 }
