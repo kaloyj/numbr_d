@@ -1,6 +1,10 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
-import { isValidNumString, PHONE_WORD_DIGIT_MAP } from "../../utils/phoneword";
+import {
+  getPhonewordsMemo,
+  isValidNumString,
+  PHONE_WORD_DIGIT_MAP,
+  savePhoneWordsMemo,
+} from "../../utils/phoneword";
 
 const generatePhonewords = (
   digits: string[],
@@ -39,13 +43,20 @@ export default (
       .status(400)
       .json({ message: "Invalid number string passed for phone generation" });
 
+  const phonewordsMemo = getPhonewordsMemo();
+  if (numStr.length >= 5 && phonewordsMemo[numStr])
+    return res.status(200).json({ phonewords: phonewordsMemo[numStr] });
+
   const digits: string[] = numStr.split("");
   const phonewords: string[] = [];
 
   generatePhonewords(digits, phonewords);
 
-  // TODO: save phonewords result in json
-  // access memo if existing
+  // can be any length
+  // we're using 5 as a personal choice
+  // to save the serverless function from
+  // heavy computing
+  if (numStr.length >= 5) savePhoneWordsMemo(numStr, phonewords);
 
   res.status(200).json({ phonewords });
 };

@@ -1,6 +1,11 @@
 import { testApiHandler } from "next-test-api-route-handler";
 import generateApi, { Data, ErrorData } from "../pages/api/generate";
 
+// normally i would mock fs here to intercept all calls,
+// but given the time constraint, and the case where
+// this app will only be ran locally
+// i opted to let the test hit the disk for read & write
+
 const isArrayUnique = (arr: string[]) => new Set(arr).size === arr.length;
 
 describe("phonewords generation API", () => {
@@ -31,11 +36,11 @@ describe("phonewords generation API", () => {
           method: "POST",
           body: "2653",
         });
-        const { phonewords: threeLetterPhonewords }: Data = await res.json();
-        expect(threeLetterPhonewords.length).toBe(3 * 3 * 3 * 3);
-        expect(isArrayUnique(threeLetterPhonewords)).toBeTruthy();
-        expect(threeLetterPhonewords).toContain("COKE");
-        expect(threeLetterPhonewords).not.toContain("DANK");
+        const { phonewords: fourLetterPhonewords }: Data = await res.json();
+        expect(fourLetterPhonewords.length).toBe(3 * 3 * 3 * 3);
+        expect(isArrayUnique(fourLetterPhonewords)).toBeTruthy();
+        expect(fourLetterPhonewords).toContain("COKE");
+        expect(fourLetterPhonewords).not.toContain("DANK");
 
         res = await fetch({
           method: "POST",

@@ -32,3 +32,6 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# for phoneword generation
+phonewords-memo.json
