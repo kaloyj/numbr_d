@@ -1,5 +1,6 @@
 import { testApiHandler } from "next-test-api-route-handler";
-import generateApi, { Data, ErrorData } from "../pages/api/generate";
+import generateApi from "../pages/api/generate";
+import { ErrorData, Data } from "../types/generate-api";
 
 // normally i would mock fs here to intercept all calls,
 // but given the time constraint, and the case where

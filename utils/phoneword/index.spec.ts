@@ -1,18 +1,8 @@
-import fs from "fs";
-import {
-  isValidNumString,
-  getPhonewordsMemo,
-  savePhoneWordsMemo,
-} from "./phoneword";
+import { isValidNumString } from ".";
 
 const DUMMY_MEMO = {
   "23": ["AD", "AE", "AF", "BD", "BE", "BF", "CD", "CE", "CF"],
 };
-
-jest.mock("fs", () => ({
-  readFileSync: jest.fn(() => JSON.stringify(DUMMY_MEMO)),
-  writeFile: jest.fn(),
-}));
 
 describe("Phoneword Utility Functions", () => {
   it("validates regex correctly", () => {
@@ -26,14 +16,5 @@ describe("Phoneword Utility Functions", () => {
     expect(isValidNumString("234")).toBeTruthy();
     expect(isValidNumString("444")).toBeTruthy();
     expect(isValidNumString("4567893")).toBeTruthy();
-  });
-
-  it("fetches phonewords memo from json", () => {
-    expect(getPhonewordsMemo()).toEqual(DUMMY_MEMO);
-  });
-
-  it("writes phonewords to phoneword json", () => {
-    savePhoneWordsMemo("23", DUMMY_MEMO["23"]);
-    expect(fs.writeFile).toHaveBeenCalledTimes(1);
   });
 });

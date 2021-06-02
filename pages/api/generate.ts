@@ -1,10 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import { GenerateApiResult } from "../../types/generate-api";
+import { isValidNumString, PHONE_WORD_DIGIT_MAP } from "../../utils/phoneword";
 import {
-  getPhonewordsMemo,
-  isValidNumString,
-  PHONE_WORD_DIGIT_MAP,
   savePhoneWordsMemo,
-} from "../../utils/phoneword";
+  getPhonewordsMemo,
+} from "../../utils/phoneword/phoneword-server";
 
 const generatePhonewords = (
   digits: string[],
@@ -24,17 +24,9 @@ const generatePhonewords = (
   );
 };
 
-export interface Data {
-  phonewords: string[];
-}
-
-export interface ErrorData {
-  message: string;
-}
-
 export default (
   req: NextApiRequest,
-  res: NextApiResponse<Data | ErrorData>
+  res: NextApiResponse<GenerateApiResult>
 ) => {
   const numStr = req.body;
 
