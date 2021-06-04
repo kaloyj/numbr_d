@@ -1,27 +1,25 @@
-import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
+import styled from "@emotion/styled";
+import Phone from "../components/Phone";
+import Layout from "../components/Layout";
+
+const HeaderTitle = styled.h1`
+  text-align: center;
+  margin: 0;
+`;
+
+const Description = styled.p`
+  margin: 0;
+  flex-basis: 70%;
+  font-size: 0.9rem;
+  text-align: center;
+`;
 
 export default function Home() {
   return (
-    <div>
-      <Head>
-        <title>numbr_d</title>
-        {/* favicon code by https://css-tricks.com/emojis-as-favicons/ */}
-        <link
-          rel="icon"
-          href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✏️</text></svg>"
-        />
-        <meta
-          name="description"
-          content="A simple phonewords generator. Simply enter a number string and generate. ✏️"
-        />
-      </Head>
-
-      <main>
-        <h1>numbr_d</h1>
-        <p>generate phonewords from any number</p>
-      </main>
-    </div>
+    <Layout>
+      <HeaderTitle>numbr_d</HeaderTitle>
+      <Description>generate phonewords from any number</Description>
+      <Phone></Phone>
+    </Layout>
   );
 }

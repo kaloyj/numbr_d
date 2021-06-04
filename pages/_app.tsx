@@ -8,7 +8,19 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <link
           rel="preload"
-          href="/fonts/Inter/Inter-VariableFont.ttf"
+          href="/fonts/Inter/Inter-Regular.ttf"
+          as="font"
+          crossOrigin=""
+        />
+        <link
+          rel="preload"
+          href="/fonts/Inter/Inter-Bold.ttf"
+          as="font"
+          crossOrigin=""
+        />
+        <link
+          rel="preload"
+          href="/fonts/Inter/Inter-ExtraLight.ttf"
           as="font"
           crossOrigin=""
         />
