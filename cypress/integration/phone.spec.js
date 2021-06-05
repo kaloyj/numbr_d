@@ -6,13 +6,6 @@ context("Phone Screens", () => {
     cy.wait(1000);
   });
 
-  it("Phone tab navigation rendered correctly", () => {
-    cy.get("[data-cy=TabsContainer]")
-      .should("exist")
-      .children()
-      .should("have.length", 3);
-  });
-
   it("Phone keypad screen renders correctly", () => {
     cy.get("[data-cy=PhoneKeypadScreen]").should("exist");
     cy.get("[data-cy=PhoneKeypadContainer]")
@@ -67,19 +60,5 @@ context("Phone Screens", () => {
     cy.get("[data-cy=TabsContainer] button:nth-child(3)").click();
     cy.get("body").type("235");
     cy.get("[data-cy=InputString]").should("not.contain", "235");
-  });
-
-  it("Contact Links are correct and are rendered correctly", () => {
-    cy.get("[data-cy=TabsContainer] button:first").click();
-
-    cy.get("[data-cy=ContactItemLink]")
-      .should("have.length", 3)
-      .then((links) => {
-        expect(links[0].href).equal(
-          "https://www.linkedin.com/in/carlo-janea-2880a2132/"
-        );
-        expect(links[1].href).equal("https://carlojanea.com/");
-        expect(links[2].href).equal("https://twitter.com/carlojanea/");
-      });
   });
 });

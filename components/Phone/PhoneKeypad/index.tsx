@@ -172,6 +172,7 @@ const PhoneKeypad = ({ setPhonewords, setQuery, onSearch }: IPhoneKeypad) => {
         </SubmitBtnContainer>
         {numStr.length > 0 && (
           <BackspaceBtn
+            data-testid="BackspaceBtn"
             data-cy="BackspaceBtn"
             whileTap={{ scale: 0.9 }}
             onClick={handleBackspace}

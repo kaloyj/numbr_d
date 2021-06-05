@@ -12,6 +12,7 @@
   "dependencies": {
     "@emotion/react": "^11.4.0",
     "@emotion/styled": "^11.3.0",
+    "@testing-library/react": "^11.2.7",
     "cypress": "^7.4.0",
     "framer-motion": "^4.1.17",
     "next": "10.2.3",
@@ -20,6 +21,7 @@
     "react-responsive": "^8.2.0"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.13.0",
     "@types/jest": "^26.0.23",
     "@types/react": "17.0.8",
     "@types/react-responsive": "^8.0.2",

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { breakpoints } from "../../utils/breakpoints";
+import { breakpoints } from "../../../utils/breakpoints";
 
 export const PhoneScreen = styled.div`
   height: calc(100% - 2.75rem);

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
-import { breakpoints } from "../../utils/breakpoints";
-import { PhoneScreen, PhoneScreenHeader } from "./PhoneContacts";
+import { breakpoints } from "../../../utils/breakpoints";
+import { PhoneScreen, PhoneScreenHeader } from "../PhoneContacts";
 
 const PhonewordsListContainer = styled(PhoneScreen)`
   padding-bottom: 2.5rem;
