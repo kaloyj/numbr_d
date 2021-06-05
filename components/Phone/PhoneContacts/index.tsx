@@ -1,91 +1,12 @@
-import styled from "@emotion/styled";
-import { breakpoints } from "../../../utils/breakpoints";
-
-export const PhoneScreen = styled.div`
-  height: calc(100% - 2.75rem);
-  width: 100%;
-  flex-shrink: 0;
-  overflow: auto;
-  position: relative;
-  padding-top: 2.6rem;
-`;
-
-export const PhoneScreenHeader = styled.h3`
-  width: 100%;
-  background-color: var(--light-black);
-  height: 2.5rem;
-  margin: 0;
-  font-size: 0.8rem;
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  @media (min-width: ${breakpoints.tablet}px) {
-    height: 3.5rem;
-    font-size: 1rem;
-  }
-`;
-
-const ContactProfile = styled.div`
-  width: 100%;
-  padding: 0.9rem;
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-
-  @media (min-width: ${breakpoints.tablet}px) {
-    padding: 2rem 1.4rem;
-  }
-`;
-
-const ContactProfileInfoName = styled.p`
-  font-size: 1.2rem;
-  font-family: var(--font-bold);
-  margin: 0;
-`;
-
-const ContactProfileInfoDesc = styled.p`
-  font-size: 0.7rem;
-  font-family: var(--font-light);
-  margin: 0 0 0 0.05rem;
-`;
-
-const ContactItem = styled.div`
-  display: flex;
-  flex-flow: row wrap;
-`;
-
-const ContactItemHeader = styled.div`
-  flex-basis: 100%;
-  padding: 0.25rem 1rem;
-  font-family: var(--font-bold);
-  background-color: var(--light-black);
-  height: 1.75rem;
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-
-  @media (min-width: ${breakpoints.tablet}px) {
-    padding: 0.5rem 1.5rem;
-  }
-`;
-
-const ContactItemLink = styled.a`
-  flex-basis: 100%;
-  padding: 0.5rem 1rem;
-  font-size: 0.8rem;
-  text-decoration: underline;
-  cursor: auto;
-  color: var(--accent);
-
-  @media (min-width: ${breakpoints.tablet}px) {
-    padding: 0.5rem 1.5rem;
-  }
-`;
+import { PhoneScreen, PhoneScreenHeader } from "../../../styles/shared";
+import {
+  ContactProfile,
+  ContactProfileInfoName,
+  ContactProfileInfoDesc,
+  ContactItem,
+  ContactItemHeader,
+  ContactItemLink,
+} from "./index.styles";
 
 const CONTACTS = [
   {

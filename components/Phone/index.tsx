@@ -1,42 +1,12 @@
 import { useCallback, useState } from "react";
-import { motion } from "framer-motion";
 import { useMediaQuery } from "react-responsive";
-import styled from "@emotion/styled";
 import PhoneContacts from "./PhoneContacts";
 import PhoneKeypad from "./PhoneKeypad";
 import PhonewordsList from "./PhonewordsList";
 import PhoneTabs, { PHONE_TAB_VIEWS } from "./PhoneTabs";
 import { breakpoints } from "../../utils/breakpoints";
 import { VisibleTabContext } from "./useVisibleTab";
-
-const SCREEN_WIDTH = {
-  mobile: 275,
-  tablet: 350,
-};
-
-const PhoneContainer = styled.div`
-  margin: 1rem;
-  overflow: hidden;
-  position: relative;
-  border-radius: 15px;
-  background-color: var(--black);
-`;
-
-const ConnectedScreens = styled(motion.div)`
-  height: 450px;
-  width: ${SCREEN_WIDTH.mobile}px;
-  position: relative;
-  background-color: var(--black);
-  color: var(--white);
-  border-radius: 15px;
-  display: flex;
-  flex-flow: row nowrap;
-
-  @media (min-width: ${breakpoints.tablet}px) {
-    width: ${SCREEN_WIDTH.tablet}px;
-    height: 500px;
-  }
-`;
+import { SCREEN_WIDTH, PhoneContainer, ConnectedScreens } from "./index.styles";
 
 const getScreenMargin = (
   visibleTab: string,
