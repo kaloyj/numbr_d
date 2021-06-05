@@ -36,6 +36,12 @@ const SubmitBtnContainer = styled(KeypadBtnContainer)`
   button {
     background-color: var(--green);
     font-weight: 700;
+    transition: background-color 0.3s ease;
+
+    &:disabled {
+      background-color: var(--black);
+      color: var(--inactive-gray);
+    }
   }
 `;
 
@@ -58,17 +64,18 @@ const BackspaceBtn = styled(motion.button)`
   }
 `;
 
-const InputField = styled.input`
+const InputString = styled.p`
   background: var(--black);
   color: var(--white);
   border: none;
   text-align: center;
   font-size: 1.5rem;
   margin: 0.75rem 0 0;
-  flex-basis: 90%;
+  flex-basis: 95%;
+  overflow-wrap: break-word;
   min-width: 0;
   height: 3rem;
-  padding: 0 1rem;
+  padding: 0 0.5rem;
 `;
 
 const ErrorMessage = styled.p`
@@ -106,10 +113,6 @@ const PhoneKeypad = ({ setPhonewords, setQuery, onSearch }: IPhoneKeypad) => {
   const [numStr, setNumStr] = useState("");
   const [error, setError] = useState("");
 
-  const handleChangeNumStr = useCallback((e) => {
-    setError("");
-    setNumStr(e.target.value);
-  }, []);
   const handleKeypadClick = useCallback((digit: string) => {
     setError("");
     setNumStr((currentNumStr) => `${currentNumStr}${digit}`);
@@ -143,17 +146,12 @@ const PhoneKeypad = ({ setPhonewords, setQuery, onSearch }: IPhoneKeypad) => {
   useKeyDown({ target: "Enter", onKeyDown: handleKeydownEnter });
 
   return (
-    <KeypadPhoneScreen>
-      <InputField
-        type="text"
-        value={numStr}
-        onChange={handleChangeNumStr}
-        aria-label="Number to generate phonewords"
-      />
+    <KeypadPhoneScreen data-cy="PhoneKeypadScreen">
+      <InputString data-cy="InputString">{numStr}</InputString>
 
-      {error && <ErrorMessage>{error}</ErrorMessage>}
+      {error && <ErrorMessage data-cy="ErrorMessage">{error}</ErrorMessage>}
 
-      <KeypadContainer>
+      <KeypadContainer data-cy="PhoneKeypadContainer">
         {KEYPAD_DIGITS.map((digit) => (
           <PhoneKeypadButton
             key={digit}
@@ -164,6 +162,7 @@ const PhoneKeypad = ({ setPhonewords, setQuery, onSearch }: IPhoneKeypad) => {
 
         <SubmitBtnContainer>
           <motion.button
+            data-cy="SubmitBtn"
             whileTap={{ scale: 0.9, backgroundColor: "var(--lightest-black)" }}
             onClick={handleSubmit}
             disabled={numStr.length === 0}
@@ -172,7 +171,11 @@ const PhoneKeypad = ({ setPhonewords, setQuery, onSearch }: IPhoneKeypad) => {
           </motion.button>
         </SubmitBtnContainer>
         {numStr.length > 0 && (
-          <BackspaceBtn whileTap={{ scale: 0.9 }} onClick={handleBackspace}>
+          <BackspaceBtn
+            data-cy="BackspaceBtn"
+            whileTap={{ scale: 0.9 }}
+            onClick={handleBackspace}
+          >
             <svg
               width="20"
               height="20"

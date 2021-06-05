@@ -65,7 +65,7 @@ const PhonewordsList = ({ phonewords, query }: IPhonewordsList) => {
               Showing <span>{phonewords.length}</span> results for
             </ResultsLabel>
             <NumberString>{query}</NumberString>
-            <ResultsListContainer>
+            <ResultsListContainer data-cy="PhonewordsList">
               {phonewords.map((phoneword) => (
                 <li key={phoneword}>{phoneword}</li>
               ))}

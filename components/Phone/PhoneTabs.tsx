@@ -65,7 +65,7 @@ interface IPhoneTabs {
 
 const PhoneTabs = ({ visibleTab, setVisibleTab }: IPhoneTabs) => {
   return (
-    <PhoneTabsContainer>
+    <PhoneTabsContainer data-cy="TabsContainer">
       <PhoneTab
         isSelected={visibleTab === PHONE_TAB_VIEWS.contacts}
         onClick={() => setVisibleTab(PHONE_TAB_VIEWS.contacts)}

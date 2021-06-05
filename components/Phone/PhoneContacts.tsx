@@ -94,17 +94,17 @@ const CONTACTS = [
   },
   {
     title: "Portfolio",
-    link: "https://carlojanea.com",
+    link: "https://carlojanea.com/",
   },
   {
     title: "Twitter",
-    link: "https://twitter.com/carlojanea",
+    link: "https://twitter.com/carlojanea/",
   },
 ];
 
 const PhoneContacts = () => {
   return (
-    <PhoneScreen>
+    <PhoneScreen data-cy="PhoneContactsScreen">
       <PhoneScreenHeader>Contacts</PhoneScreenHeader>
 
       <ContactProfile>
@@ -176,6 +176,7 @@ const PhoneContacts = () => {
         <ContactItem key={title}>
           <ContactItemHeader>{title.charAt(0)}</ContactItemHeader>
           <ContactItemLink
+            data-cy="ContactItemLink"
             target="_blank"
             href={link}
             rel="noreferrer noopener"
