@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
+import { breakpoints } from "../../utils/breakpoints";
 
 export const PhoneScreen = styled.div`
-  height: calc(100% - 2.3rem);
+  height: calc(100% - 2.75rem);
   width: 100%;
   flex-shrink: 0;
   overflow: auto;
@@ -22,6 +23,11 @@ export const PhoneScreenHeader = styled.h3`
   position: absolute;
   top: 0;
   left: 0;
+
+  @media (min-width: ${breakpoints.tablet}px) {
+    height: 3.5rem;
+    font-size: 1rem;
+  }
 `;
 
 const ContactProfile = styled.div`
@@ -30,6 +36,10 @@ const ContactProfile = styled.div`
   display: flex;
   flex-flow: row wrap;
   align-items: center;
+
+  @media (min-width: ${breakpoints.tablet}px) {
+    padding: 2rem 1.4rem;
+  }
 `;
 
 const ContactProfileInfoName = styled.p`
@@ -58,6 +68,10 @@ const ContactItemHeader = styled.div`
   display: flex;
   flex-flow: row wrap;
   align-items: center;
+
+  @media (min-width: ${breakpoints.tablet}px) {
+    padding: 0.5rem 1.5rem;
+  }
 `;
 
 const ContactItemLink = styled.a`
@@ -67,6 +81,10 @@ const ContactItemLink = styled.a`
   text-decoration: underline;
   cursor: auto;
   color: var(--accent);
+
+  @media (min-width: ${breakpoints.tablet}px) {
+    padding: 0.5rem 1.5rem;
+  }
 `;
 
 const CONTACTS = [
@@ -124,7 +142,7 @@ const PhoneContacts = () => {
                 d="M15 21c2 1 4 1 6 0"
                 stroke="white"
                 fill="none"
-                stroke-linecap="round"
+                strokeLinecap="round"
               ></path>
               <rect
                 x="14"

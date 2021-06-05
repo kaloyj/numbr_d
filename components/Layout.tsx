@@ -1,15 +1,22 @@
 import { ReactNode } from "react";
+import { motion } from "framer-motion";
 import Head from "next/head";
 import styled from "@emotion/styled";
+import { breakpoints } from "../utils/breakpoints";
 
-const Main = styled.main`
+const Main = styled(motion.main)`
   width: 100vw;
   height: 100vh;
   padding: 0.5rem;
-  overflow: auto;
+  overflow: hidden;
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
+  align-content: center;
+
+  @media (min-width: ${breakpoints.tablet}px) {
+    padding: 5rem;
+  }
 `;
 
 interface ILayout {
@@ -40,7 +47,13 @@ const Layout = ({
         <title>{title}</title>
         <meta name="description" content={description} />
       </Head>
-      <Main>{children}</Main>
+      <Main
+        initial={{ y: 400, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
+        {children}
+      </Main>
     </>
   );
 };

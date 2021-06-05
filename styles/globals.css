@@ -21,8 +21,10 @@
 
 :root {
   --black: #171219;
+  --transparent-black: rgba(23, 18, 25, 0.85);
   --light-black: #29202d;
   --lightest-black: #413347;
+  --tapped-black: #bdadc4;
   --white: #ffffff;
   --accent: #147efb;
   --green: #53d769;

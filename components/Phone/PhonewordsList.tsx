@@ -1,10 +1,18 @@
 import styled from "@emotion/styled";
+import { breakpoints } from "../../utils/breakpoints";
 import { PhoneScreen, PhoneScreenHeader } from "./PhoneContacts";
 
+const PhonewordsListContainer = styled(PhoneScreen)`
+  padding-bottom: 2.5rem;
+`;
 const ListContainer = styled.div`
   display: flex;
   flex-flow: row wrap;
   padding: 1rem;
+
+  @media (min-width: ${breakpoints.tablet}px) {
+    padding: 2rem 1.5rem;
+  }
 `;
 
 const ResultsLabel = styled.p`
@@ -48,7 +56,7 @@ interface IPhonewordsList {
 
 const PhonewordsList = ({ phonewords, query }: IPhonewordsList) => {
   return (
-    <PhoneScreen>
+    <PhonewordsListContainer>
       <PhoneScreenHeader>Results</PhoneScreenHeader>
       <ListContainer>
         {query ? (
@@ -57,7 +65,6 @@ const PhonewordsList = ({ phonewords, query }: IPhonewordsList) => {
               Showing <span>{phonewords.length}</span> results for
             </ResultsLabel>
             <NumberString>{query}</NumberString>
-
             <ResultsListContainer>
               {phonewords.map((phoneword) => (
                 <li key={phoneword}>{phoneword}</li>
@@ -68,7 +75,7 @@ const PhonewordsList = ({ phonewords, query }: IPhonewordsList) => {
           <div>No searched query, yet.</div>
         )}
       </ListContainer>
-    </PhoneScreen>
+    </PhonewordsListContainer>
   );
 };
 

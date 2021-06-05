@@ -1,18 +1,8 @@
 import { Dispatch } from "react";
 import styled from "@emotion/styled";
 
-enum tabKeys {
-  CONTACTS = "contacts",
-  KEYPAD = "keypad",
-  RESULTS = "results",
-}
-
-type ITabViews = {
-  [key in tabKeys]: string;
-};
-
-export const PHONE_TAB_VIEWS: ITabViews = {
-  contacts: "Contact",
+export const PHONE_TAB_VIEWS = {
+  contacts: "Contacts",
   keypad: "Keypad",
   results: "Results",
 };
@@ -22,8 +12,8 @@ const PhoneTabsContainer = styled.div`
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 2.5rem;
-  background-color: var(--black);
+  height: 2.75rem;
+  background-color: var(--transparent-black);
   display: flex;
   flex-flow: row wrap;
 `;
@@ -42,10 +32,11 @@ const PhoneTab = styled.button<PhoneTabProps>`
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
-  align-content: center;
+  align-content: flex-start;
+  padding-top: 0.3rem;
 
   span {
-    flex-basis: 80%;
+    flex-basis: 100%;
     text-align: center;
     font-size: 0.6rem;
     font-weight: 700;

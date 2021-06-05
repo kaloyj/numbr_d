@@ -1,14 +1,21 @@
 import { Dispatch, useCallback, useState } from "react";
+import { motion } from "framer-motion";
 import styled from "@emotion/styled";
 import { GenerateApiResult, isErrorData } from "../../../types/generate-api";
 import { PhoneScreen } from "../PhoneContacts";
 import PhoneKeypadButton, { KeypadBtnContainer } from "./PhoneKeypadButton";
+import { breakpoints } from "../../../utils/breakpoints";
 
 const KeypadPhoneScreen = styled(PhoneScreen)`
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
-  align-content: flex-start;
+  padding-top: 0;
+  padding-bottom: 1rem;
+
+  @media (min-width: ${breakpoints.tablet}px) {
+    padding: 2rem;
+  }
 `;
 
 const KeypadContainer = styled.div`
@@ -29,7 +36,7 @@ const SubmitBtnContainer = styled(KeypadBtnContainer)`
   }
 `;
 
-const BackspaceBtn = styled.button`
+const BackspaceBtn = styled(motion.button)`
   flex-basis: 28%;
   margin-left: 4%;
   background-color: var(--black);
@@ -88,9 +95,10 @@ const KEYPAD_DIGITS = [
 interface IPhoneKeypad {
   setPhonewords: Dispatch<string[]>;
   setQuery: Dispatch<string>;
+  onSearch: () => void;
 }
 
-const PhoneKeypad = ({ setPhonewords, setQuery }: IPhoneKeypad) => {
+const PhoneKeypad = ({ setPhonewords, setQuery, onSearch }: IPhoneKeypad) => {
   const [numStr, setNumStr] = useState("");
   const [error, setError] = useState("");
 
@@ -117,8 +125,9 @@ const PhoneKeypad = ({ setPhonewords, setQuery }: IPhoneKeypad) => {
     else {
       setQuery(numStr);
       setPhonewords(result.phonewords);
+      onSearch();
     }
-  }, [numStr]);
+  }, [numStr, onSearch]);
 
   return (
     <KeypadPhoneScreen>
@@ -141,12 +150,16 @@ const PhoneKeypad = ({ setPhonewords, setQuery }: IPhoneKeypad) => {
         ))}
 
         <SubmitBtnContainer>
-          <button onClick={handleSubmit} disabled={numStr.length === 0}>
+          <motion.button
+            whileTap={{ scale: 0.9, backgroundColor: "var(--lightest-black)" }}
+            onClick={handleSubmit}
+            disabled={numStr.length === 0}
+          >
             Go
-          </button>
+          </motion.button>
         </SubmitBtnContainer>
         {numStr.length > 0 && (
-          <BackspaceBtn onClick={handleBackspace}>
+          <BackspaceBtn whileTap={{ scale: 0.9 }} onClick={handleBackspace}>
             <svg
               width="20"
               height="20"

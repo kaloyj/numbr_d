@@ -1,4 +1,5 @@
 import { useCallback } from "react";
+import { motion } from "framer-motion";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { PHONE_WORD_DIGIT_MAP } from "../../../utils/phoneword";
@@ -62,12 +63,16 @@ const PhoneKeypadButton = ({ keypadDigit, onClick }: IPhoneKeypadButton) => {
   return (
     <KeypadBtnContainer>
       {isActive ? (
-        <button type="button" onClick={handleClick}>
+        <motion.button
+          type="button"
+          onClick={handleClick}
+          whileTap={{ scale: 0.9, backgroundColor: "var(--tapped-black)" }}
+        >
           <p>{keypadDigit}</p>
           {PHONE_WORD_DIGIT_MAP[keypadDigit].map((letter) => (
             <span key={letter}>{letter}</span>
           ))}
-        </button>
+        </motion.button>
       ) : (
         <InactiveKeypadBtn>
           <p>{keypadDigit}</p>
