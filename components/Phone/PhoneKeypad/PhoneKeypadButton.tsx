@@ -3,6 +3,9 @@ import { motion } from "framer-motion";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { PHONE_WORD_DIGIT_MAP } from "../../../utils/phoneword";
+import { useKeyDown } from "./useKeyDown";
+import { useVisibleTab } from "../useVisibleTab";
+import { PHONE_TAB_VIEWS } from "../PhoneTabs";
 
 const buttonBase = css`
   height: 50px;
@@ -54,11 +57,17 @@ interface IPhoneKeypadButton {
   onClick: (digit: string) => void;
 }
 const PhoneKeypadButton = ({ keypadDigit, onClick }: IPhoneKeypadButton) => {
+  const visibleTab = useVisibleTab();
   const isActive = Boolean(PHONE_WORD_DIGIT_MAP[keypadDigit]);
   const handleClick = useCallback(
     () => onClick(keypadDigit),
     [onClick, keypadDigit]
   );
+  const handleKeyDown = useCallback(() => {
+    if (isActive && visibleTab === PHONE_TAB_VIEWS.keypad) handleClick();
+  }, [isActive, handleClick, visibleTab]);
+
+  useKeyDown({ target: keypadDigit, onKeyDown: handleKeyDown });
 
   return (
     <KeypadBtnContainer>

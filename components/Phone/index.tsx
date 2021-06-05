@@ -7,6 +7,7 @@ import PhoneKeypad from "./PhoneKeypad";
 import PhonewordsList from "./PhonewordsList";
 import PhoneTabs, { PHONE_TAB_VIEWS } from "./PhoneTabs";
 import { breakpoints } from "../../utils/breakpoints";
+import { VisibleTabContext } from "./useVisibleTab";
 
 const SCREEN_WIDTH = {
   mobile: 275,
@@ -72,13 +73,18 @@ const Phone = () => {
         }}
         transition={{ stiffness: 20 }}
       >
-        <PhoneContacts></PhoneContacts>
-        <PhoneKeypad
-          setPhonewords={setPhonewords}
-          setQuery={setQuery}
-          onSearch={handlePhonewordsQuery}
-        ></PhoneKeypad>
-        <PhonewordsList phonewords={phonewords} query={query}></PhonewordsList>
+        <VisibleTabContext.Provider value={visibleTab}>
+          <PhoneContacts></PhoneContacts>
+          <PhoneKeypad
+            setPhonewords={setPhonewords}
+            setQuery={setQuery}
+            onSearch={handlePhonewordsQuery}
+          ></PhoneKeypad>
+          <PhonewordsList
+            phonewords={phonewords}
+            query={query}
+          ></PhonewordsList>
+        </VisibleTabContext.Provider>
       </ConnectedScreens>
 
       <PhoneTabs

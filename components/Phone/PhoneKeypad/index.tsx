@@ -5,6 +5,9 @@ import { GenerateApiResult, isErrorData } from "../../../types/generate-api";
 import { PhoneScreen } from "../PhoneContacts";
 import PhoneKeypadButton, { KeypadBtnContainer } from "./PhoneKeypadButton";
 import { breakpoints } from "../../../utils/breakpoints";
+import { useKeyDown } from "./useKeyDown";
+import { useVisibleTab } from "../useVisibleTab";
+import { PHONE_TAB_VIEWS } from "../PhoneTabs";
 
 const KeypadPhoneScreen = styled(PhoneScreen)`
   display: flex;
@@ -99,6 +102,7 @@ interface IPhoneKeypad {
 }
 
 const PhoneKeypad = ({ setPhonewords, setQuery, onSearch }: IPhoneKeypad) => {
+  const visibleTab = useVisibleTab();
   const [numStr, setNumStr] = useState("");
   const [error, setError] = useState("");
 
@@ -128,6 +132,15 @@ const PhoneKeypad = ({ setPhonewords, setQuery, onSearch }: IPhoneKeypad) => {
       onSearch();
     }
   }, [numStr, onSearch]);
+  const handleKeydownBackspace = useCallback(() => {
+    if (visibleTab === PHONE_TAB_VIEWS.keypad) handleBackspace();
+  }, [visibleTab, handleBackspace]);
+  const handleKeydownEnter = useCallback(() => {
+    if (visibleTab === PHONE_TAB_VIEWS.keypad) handleSubmit();
+  }, [visibleTab, handleSubmit]);
+
+  useKeyDown({ target: "Backspace", onKeyDown: handleKeydownBackspace });
+  useKeyDown({ target: "Enter", onKeyDown: handleKeydownEnter });
 
   return (
     <KeypadPhoneScreen>
