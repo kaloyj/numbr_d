@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import PhoneContacts from "./PhoneContacts";
 import PhoneKeypad from "./PhoneKeypad";
@@ -7,6 +7,7 @@ import PhoneTabs, { PHONE_TAB_VIEWS } from "./PhoneTabs";
 import { breakpoints } from "../../utils/breakpoints";
 import { VisibleTabContext } from "./useVisibleTab";
 import { SCREEN_WIDTH, PhoneContainer, ConnectedScreens } from "./index.styles";
+import { FILTERS } from "../../utils/phoneword";
 
 const getScreenMargin = (
   visibleTab: string,
@@ -25,12 +26,13 @@ const getScreenMargin = (
 const Phone = () => {
   const [visibleTab, setVisibleTab] = useState(PHONE_TAB_VIEWS.keypad);
   const [query, setQuery] = useState("");
+  const [filter, setFilter] = useState(FILTERS.all);
   const [phonewords, setPhonewords] = useState<string[]>([]);
   const isTabletUp = useMediaQuery({ minWidth: breakpoints.tablet });
-  const handlePhonewordsQuery = useCallback(
-    () => setVisibleTab(PHONE_TAB_VIEWS.results),
-    []
-  );
+  const handlePhonewordsQuery = useCallback(() => {
+    setVisibleTab(PHONE_TAB_VIEWS.results);
+    setFilter(FILTERS.all);
+  }, []);
 
   return (
     <PhoneContainer>
@@ -53,6 +55,9 @@ const Phone = () => {
           <PhonewordsList
             phonewords={phonewords}
             query={query}
+            setPhonewords={setPhonewords}
+            filter={filter}
+            setFilter={setFilter}
           ></PhonewordsList>
         </VisibleTabContext.Provider>
       </ConnectedScreens>

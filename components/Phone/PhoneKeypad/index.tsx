@@ -69,7 +69,7 @@ const PhoneKeypad = ({ setPhonewords, setQuery, onSearch }: IPhoneKeypad) => {
     setLoading(true);
     const result: GenerateApiResult = await fetch("/api/generate", {
       method: "POST",
-      body: numStr,
+      body: JSON.stringify({ numStr }),
     }).then((res) => res.json());
 
     if (isErrorData(result)) setError(result.message);

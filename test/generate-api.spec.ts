@@ -17,7 +17,7 @@ describe("phonewords generation API", () => {
       test: async ({ fetch }) => {
         let res = await fetch({
           method: "POST",
-          body: "23",
+          body: JSON.stringify({ numStr: "23" }),
         });
         const { phonewords }: Data = await res.json();
         expect(phonewords.length).toBe(9);
@@ -35,7 +35,7 @@ describe("phonewords generation API", () => {
 
         res = await fetch({
           method: "POST",
-          body: "2653",
+          body: JSON.stringify({ numStr: "2653" }),
         });
         const { phonewords: fourLetterPhonewords }: Data = await res.json();
         expect(fourLetterPhonewords.length).toBe(3 * 3 * 3 * 3);
@@ -45,7 +45,7 @@ describe("phonewords generation API", () => {
 
         res = await fetch({
           method: "POST",
-          body: "445866",
+          body: JSON.stringify({ numStr: "445866" }),
         });
         const { phonewords: sixLetterPhonewords }: Data = await res.json();
         expect(sixLetterPhonewords.length).toBe(3 * 3 * 3 * 3 * 3 * 3);
@@ -64,7 +64,7 @@ describe("phonewords generation API", () => {
         // with 1 && 0
         let res = await fetch({
           method: "POST",
-          body: "1230",
+          body: JSON.stringify({ numStr: "1230" }),
         });
         const { message }: ErrorData = await res.json();
         expect(message).toContain("Invalid number string");
@@ -72,7 +72,7 @@ describe("phonewords generation API", () => {
         // empty string
         res = await fetch({
           method: "POST",
-          body: "",
+          body: JSON.stringify({ numStr: "" }),
         });
         const { message: messageForEmptyString }: ErrorData = await res.json();
         expect(messageForEmptyString).toContain("Invalid number string");
@@ -80,7 +80,7 @@ describe("phonewords generation API", () => {
         // letters
         res = await fetch({
           method: "POST",
-          body: "234ABC",
+          body: JSON.stringify({ numStr: "234ABC" }),
         });
         const { message: messageForChars }: ErrorData = await res.json();
         expect(messageForChars).toContain("Invalid number string");
@@ -88,7 +88,7 @@ describe("phonewords generation API", () => {
         // special characters
         res = await fetch({
           method: "POST",
-          body: "2349@!#$%^",
+          body: JSON.stringify({ numStr: "2349@!#$%^" }),
         });
         const { message: messageForSpecialChars }: ErrorData = await res.json();
         expect(messageForSpecialChars).toContain("Invalid number string");

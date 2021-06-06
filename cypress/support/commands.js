@@ -6,7 +6,10 @@ Cypress.Commands.add("mockApiRoutes", () => {
     },
     (req) => {
       const { body } = req;
-      if (Number.isNaN(Number(body))) req.reply({ message: "Invalid input" });
+      const { numStr, filter } = JSON.parse(body);
+      if (Number.isNaN(Number(numStr))) req.reply({ message: "Invalid input" });
+      else if (filter === "In Dictionary")
+        req.reply({ fixture: "phonewords-dictionary.json" });
       else req.reply({ fixture: "phonewords.json" });
     }
   );

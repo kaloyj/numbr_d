@@ -15,3 +15,12 @@ export const PHONE_WORD_DIGIT_MAP: PhonewordDigitMap = {
   "8": ["T", "U", "V"],
   "9": ["W", "X", "Y", "Z"],
 };
+
+interface IFilters {
+  [key: string]: string;
+}
+
+export const FILTERS: IFilters = {
+  all: "All",
+  dictionary: "In Dictionary",
+};

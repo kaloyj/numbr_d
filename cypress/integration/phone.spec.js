@@ -69,4 +69,32 @@ context("Phone Screens", () => {
     cy.get("body").type("235");
     cy.get("[data-cy=InputString]").should("not.contain", "235");
   });
+
+  it("Results filter buttons work", () => {
+    cy.fixture("phonewords-dictionary.json").then((result) => {
+      const phonewords = result.phonewords;
+      cy.get("body").type("235");
+      cy.get("body").trigger("keydown", { key: "Enter" });
+      cy.get("[data-cy=FiltersContainer] button:first")
+        .should("exist")
+        .and("be.disabled");
+
+      cy.get("[data-cy=FiltersContainer] button:last")
+        .should("exist")
+        .and("not.be.disabled")
+        .click();
+
+      cy.get("[data-cy=FiltersContainer] button:first")
+        .should("exist")
+        .and("not.be.disabled");
+
+      cy.get("[data-cy=FiltersContainer] button:last")
+        .should("exist")
+        .and("be.disabled");
+
+      cy.get("[data-cy=PhonewordsList]")
+        .children()
+        .should("have.length", phonewords.length);
+    });
+  });
 });

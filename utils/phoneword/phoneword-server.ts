@@ -1,4 +1,6 @@
 import fs from "fs";
+import got from "got";
+import { PHONE_WORD_DIGIT_MAP } from ".";
 
 interface PhonewordMap {
   [key: string]: string[];
@@ -29,4 +31,41 @@ export const savePhoneWordsMemo = (numStr: string, phonewords: string[]) => {
       console.log("Write successful");
     }
   );
+};
+
+export const convertNumToRegex = (numStr: string) => {
+  const str = numStr
+    .split("")
+    .reduce(
+      (res, digit) =>
+        `${res}[${PHONE_WORD_DIGIT_MAP[digit].join("").toLowerCase()}]`,
+      ""
+    );
+  return `^${str}$`;
+};
+
+export const getDictionaryWords = async (numStr: string) => {
+  let searchedWords: string[] = [];
+  const regexString = convertNumToRegex(numStr);
+
+  try {
+    const { body } = await got(
+      `https://wordsapiv1.p.rapidapi.com/words/?letterPattern=${encodeURI(
+        regexString
+      )}`,
+      {
+        method: "GET",
+        headers: {
+          "x-rapidapi-key": process.env.RAPID_API_KEY,
+          "x-rapidapi-host": process.env.RAPID_API_HOST,
+        },
+      }
+    );
+
+    searchedWords = JSON.parse(body).results.data;
+  } catch (e) {
+    console.log("RapidAPI request failed", { e });
+  }
+
+  return searchedWords;
 };
