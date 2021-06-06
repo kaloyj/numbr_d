@@ -14,7 +14,6 @@ const HeaderTitle = styled.h1`
 `;
 
 const Description = styled.p`
-  width: 100%;
   margin: 0;
   flex-basis: 70%;
   font-size: 0.9rem;
@@ -23,6 +22,7 @@ const Description = styled.p`
   @media (min-width: ${breakpoints.tablet}px) {
     font-size: 1.5rem;
     margin-bottom: 1rem;
+    flex-basis: 100%;
   }
 `;
 
