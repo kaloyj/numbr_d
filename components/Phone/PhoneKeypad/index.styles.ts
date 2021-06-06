@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { css } from "@emotion/react";
 import { motion } from "framer-motion";
 import { PhoneScreen } from "../../../styles/shared";
 import { KeypadBtnContainer } from "./PhoneKeypadButton.styles";
@@ -12,7 +13,7 @@ export const KeypadPhoneScreen = styled(PhoneScreen)`
   padding-bottom: 1rem;
 
   @media (min-width: ${breakpoints.tablet}px) {
-    padding: 2rem;
+    padding: 1rem 2rem;
   }
 `;
 
@@ -34,7 +35,7 @@ export const SubmitBtnContainer = styled(KeypadBtnContainer)`
     transition: background-color 0.3s ease;
 
     &:disabled {
-      background-color: var(--black);
+      background-color: var(--black) !important;
       color: var(--inactive-gray);
     }
   }
@@ -59,18 +60,32 @@ export const BackspaceBtn = styled(motion.button)`
   }
 `;
 
+const MaxLengthInput = css`
+  &:before {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, 120%);
+    content: "Max length reached";
+    color: var(--accent);
+    font-size: 0.8rem;
+  }
+`;
+
 export const InputString = styled.p`
   background: var(--black);
   color: var(--white);
   border: none;
-  text-align: center;
   font-size: 1.5rem;
-  margin: 0.75rem 0 0;
+  margin: 0;
   flex-basis: 95%;
   overflow-wrap: break-word;
   min-width: 0;
-  height: 3rem;
-  padding: 0 0.5rem;
+  padding: 0.5rem 0.5rem 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const ErrorMessage = styled.p`
@@ -80,4 +95,12 @@ export const ErrorMessage = styled.p`
   font-weight: 700;
   font-size: 0.7rem;
   flex: 0 0 60%;
+`;
+
+export const InputInfoMessage = styled.p`
+  margin: 0;
+  color: var(--accent);
+  text-align: center;
+  flex: 0 0 60%;
+  font-size: 0.8rem;
 `;

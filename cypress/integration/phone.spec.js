@@ -17,6 +17,14 @@ context("Phone Screens", () => {
     cy.get("[data-cy=PhoneKeypadContainer] button").should("have.length", 10);
   });
 
+  it("Phone keypad input display shows max length reached", () => {
+    cy.get("body").type("234555679");
+    cy.get("[data-cy=InputInfoMessage]").should("contain", "Max");
+
+    cy.get("body").trigger("keydown", { key: "Backspace" });
+    cy.get("[data-cy=InputInfoMessage]").should("not.exist");
+  });
+
   it("Phone keypad generates phonewords", () => {
     cy.fixture("phonewords.json").then((result) => {
       const phonewords = result.phonewords;

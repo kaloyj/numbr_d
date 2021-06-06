@@ -12,6 +12,7 @@ import {
   KeypadContainer,
   SubmitBtnContainer,
   BackspaceBtn,
+  InputInfoMessage,
 } from "./index.styles";
 
 const KEYPAD_DIGITS = [
@@ -35,21 +36,37 @@ interface IPhoneKeypad {
   onSearch: () => void;
 }
 
+// can be any digit
+// personal choice as i've noticed
+// > 9 digits takes a relatively long time to generate
+// with my current backend implementation 😄
+const MAX_DIGIT_LENGTH = 9;
+
 const PhoneKeypad = ({ setPhonewords, setQuery, onSearch }: IPhoneKeypad) => {
   const visibleTab = useVisibleTab();
   const [numStr, setNumStr] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const isMaxDigits = numStr.length === MAX_DIGIT_LENGTH;
 
-  const handleKeypadClick = useCallback((digit: string) => {
-    setError("");
-    setNumStr((currentNumStr) => `${currentNumStr}${digit}`);
-  }, []);
+  const handleKeypadClick = useCallback(
+    (digit: string) => {
+      if (isMaxDigits) return;
+
+      setError("");
+      setNumStr((currentNumStr) => `${currentNumStr}${digit}`);
+    },
+    [isMaxDigits]
+  );
   const handleBackspace = useCallback(() => {
     setError("");
     setNumStr((currentNumStr) => currentNumStr.slice(0, -1));
   }, []);
   const handleSubmit = useCallback(async () => {
+    if (numStr.length === 0) return;
+
     setError("");
+    setLoading(true);
     const result: GenerateApiResult = await fetch("/api/generate", {
       method: "POST",
       body: numStr,
@@ -61,6 +78,8 @@ const PhoneKeypad = ({ setPhonewords, setQuery, onSearch }: IPhoneKeypad) => {
       setPhonewords(result.phonewords);
       onSearch();
     }
+
+    setLoading(false);
   }, [numStr, onSearch]);
   const handleKeydownBackspace = useCallback(() => {
     if (visibleTab === PHONE_TAB_VIEWS.keypad) handleBackspace();
@@ -75,6 +94,11 @@ const PhoneKeypad = ({ setPhonewords, setQuery, onSearch }: IPhoneKeypad) => {
   return (
     <KeypadPhoneScreen data-cy="PhoneKeypadScreen">
       <InputString data-cy="InputString">{numStr}</InputString>
+      {isMaxDigits && (
+        <InputInfoMessage data-cy="InputInfoMessage">
+          Max length reached
+        </InputInfoMessage>
+      )}
 
       {error && <ErrorMessage data-cy="ErrorMessage">{error}</ErrorMessage>}
 
@@ -92,9 +116,9 @@ const PhoneKeypad = ({ setPhonewords, setQuery, onSearch }: IPhoneKeypad) => {
             data-cy="SubmitBtn"
             whileTap={{ scale: 0.9, backgroundColor: "var(--lightest-black)" }}
             onClick={handleSubmit}
-            disabled={numStr.length === 0}
+            disabled={loading || numStr.length === 0}
           >
-            Go
+            {loading ? "..." : "Go"}
           </motion.button>
         </SubmitBtnContainer>
         {numStr.length > 0 && (
