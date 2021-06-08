@@ -13,6 +13,13 @@ export const PhoneContainer = styled.div`
   position: relative;
   border-radius: 15px;
   background-color: var(--black);
+
+  -webkit-box-shadow: 26px 32px 36px -22px rgba(65, 51, 71, 0.69),
+    3px 4px 4px -3px rgba(65, 51, 71, 0.8);
+  -moz-box-shadow: 26px 32px 36px -22px rgba(65, 51, 71, 0.69),
+    3px 4px 4px -3px rgba(65, 51, 71, 0.8);
+  box-shadow: 26px 32px 36px -22px rgba(65, 51, 71, 0.69),
+    3px 4px 4px -3px rgba(65, 51, 71, 0.8);
 `;
 
 export const ConnectedScreens = styled(motion.div)`
